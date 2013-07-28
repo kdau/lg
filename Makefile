@@ -35,7 +35,7 @@ LIBS = -luuid
 INCLUDEDIRS = -I. -I$(srcdir)
 # If you care for this... # -Wno-unused-variable
 # A lot of the callbacks have unused parameters, so I turn that off.
-CXXFLAGS =  -W -Wall -Wno-unused-parameter -masm=intel $(INCLUDEDIRS)
+CXXFLAGS =  -W -Wall -Wno-unused-parameter -masm=intel -std=gnu++0x $(INCLUDEDIRS)
 LDFLAGS = -mwindows -L. -llg
 DLLFLAGS = --def script.def --add-underscore --target i386-mingw32
 

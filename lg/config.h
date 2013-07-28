@@ -10,7 +10,9 @@
 #endif
 
 #if __cplusplus < 201103L
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
 #define constexpr const
+#endif
 #endif
 
 #ifdef _MSC_VER
