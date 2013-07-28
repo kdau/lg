@@ -26,7 +26,9 @@
 
 #else // !_MSC_VER
 
+#ifndef __thiscall
 #define __thiscall
+#endif
 
 #define SPEC_THROW(x)	throw(x)
 #define NO_THROW throw()
