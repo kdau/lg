@@ -33,10 +33,10 @@ interface IActReactSrv : IScriptServiceBase
  *  	: float - Intensity of the reaction.
  *  	: object - The source object.
  *  	: object - The destination object.
- *  	: cMultiParm & - Argument for the reaction.
+ *  	: sMultiParm & - Argument for the reaction.
  *  	: ...
  */
-	STDMETHOD(React)(reaction_kind,float,object,object,const cMultiParm &,const cMultiParm &,const cMultiParm &,const cMultiParm &,const cMultiParm &,const cMultiParm &,const cMultiParm &,const cMultiParm &) PURE;
+	STDMETHOD(React)(reaction_kind,float,object,object,const sMultiParm &,const sMultiParm &,const sMultiParm &,const sMultiParm &,const sMultiParm &,const sMultiParm &,const sMultiParm &,const sMultiParm &) PURE;
 #if (_DARKGAME == 1)
 /*** Stimulate - Stimulate an object.
  *  	= long - Returns 0 on success.
@@ -109,26 +109,26 @@ interface IAIScrSrv : IScriptServiceBase
  *  	: const object & - The target object.
  *  	: eAIScriptSpeed - How quickly the AI will move.
  *  	: eAIActionPriority - Priority level the action will be evaluated at.
- *  	: const cMultiParm & - Arbitrary data that will be passed with the ObjActResult message.
+ *  	: const sMultiParm & - Arbitrary data that will be passed with the ObjActResult message.
  */
-	STDMETHOD_(true_bool*,MakeGotoObjLoc)(true_bool &,int,const object &,eAIScriptSpeed,eAIActionPriority,const cMultiParm &) PURE;
+	STDMETHOD_(true_bool*,MakeGotoObjLoc)(true_bool &,int,const object &,eAIScriptSpeed,eAIActionPriority,const sMultiParm &) PURE;
 /*** MakeFrobObjWith - Instruct an AI to frob an object with another object.
  *  	= true_bool - Success.
  *  	: int - Object ID of the AI.
  *  	: const object & - The target object.
  *  	: const object & - Object that the target will be frobbed with.
  *  	: eAIActionPriority - Priority level the action will be evaluated at.
- *  	: const cMultiParm & - Arbitrary data that will be passed with the ObjActResult message.
+ *  	: const sMultiParm & - Arbitrary data that will be passed with the ObjActResult message.
  */
-	STDMETHOD_(true_bool*,MakeFrobObjWith)(true_bool &,int,const object &,const object &,eAIActionPriority,const cMultiParm &) PURE;
+	STDMETHOD_(true_bool*,MakeFrobObjWith)(true_bool &,int,const object &,const object &,eAIActionPriority,const sMultiParm &) PURE;
 /*** MakeFrobObj - Instruct an AI to frob an object.
  *  	= true_bool - Success.
  *  	: int - Object ID of the AI.
  *  	: const object & - The target object.
  *  	: eAIActionPriority - Priority level the action will be evaluated at.
- *  	: const cMultiParm & - Arbitrary data that will be passed with the ObjActResult message.
+ *  	: const sMultiParm & - Arbitrary data that will be passed with the ObjActResult message.
  */
-	STDMETHOD_(true_bool*,MakeFrobObj)(true_bool &,int,const object &,eAIActionPriority,const cMultiParm &) PURE;
+	STDMETHOD_(true_bool*,MakeFrobObj)(true_bool &,int,const object &,eAIActionPriority,const sMultiParm &) PURE;
 /*** GetAlertLevel - Return the current alert level of the AI.
  *  	= eAIScriptAlertLevel - The current level.
  *  	: int - Object ID of the AI.
@@ -705,10 +705,10 @@ interface ILinkSrv : IScriptServiceBase
  *  	: const object & - The source of the link(s). Also the source of the message(s).
  *  	: const char * - The name of the message to send.
  *  	: linkkind - The flavor of the link(s) to send the message accross.
- *  	: const cMultiParm & - The message is sent if the link data matches this exactly. It is copied to the first data parameter of the message.
+ *  	: const sMultiParm & - The message is sent if the link data matches this exactly. It is copied to the first data parameter of the message.
  *  	@ ILinkManager::Query(src,0,flavor)
  */
-	STDMETHOD_(long,BroadcastOnAllLinksData)(const object &,const char *,linkkind,const cMultiParm &) PURE;
+	STDMETHOD_(long,BroadcastOnAllLinksData)(const object &,const char *,linkkind,const sMultiParm &) PURE;
 /*** CreateMany - Add links between many different objects.
  *  	= long - Returns 0 on success.
  *  	: linkkind - The flavor of the links to create.
@@ -763,18 +763,18 @@ interface ILinkToolsSrv : IScriptServiceBase
  */
 	STDMETHOD_(long,LinkGet)(long,sLink &) PURE;
 /*** LinkGetData - Retrieve the data associated with a link.
- *  	= cMultiParm - Aggregate return. Caller should free.
+ *  	= sMultiParm - Aggregate return. Caller should free.
  *  	: long - The link ID.
  *  	: const char * - Name of the structure field to retrieve.
  */
-	STDMETHOD_(cMultiParm*,LinkGetData)(cMultiParm &,long,const char *) PURE;
+	STDMETHOD_(sMultiParm*,LinkGetData)(sMultiParm &,long,const char *) PURE;
 /*** LinkSetData - Set the data associated with a link.
  *  	= long - Returns 0.
  *  	: long - The link ID.
  *  	: const char * - The structure field to modify.
- *  	: const cMultiParm & - The data to assign.
+ *  	: const sMultiParm & - The data to assign.
  */
-	STDMETHOD(LinkSetData)(long,const char *,const cMultiParm &) PURE;
+	STDMETHOD(LinkSetData)(long,const char *,const sMultiParm &) PURE;
 };
 DEFINE_IIDSTRUCT(ILinkToolsSrv,IID_ILinkToolsScriptService);
 
@@ -798,17 +798,17 @@ interface INetworkingSrv : IScriptServiceBase
  *  	: const object & - The object to send to.
  *  	: const char * - The message name.
  *  	: Bool - Send the message even if the object is a proxy.
- *  	: const cMultiParm & - Message data.
+ *  	: const sMultiParm & - Message data.
  */
-	STDMETHOD_(Bool,Broadcast)(const object &,const char *,int,const cMultiParm &) PURE;
+	STDMETHOD_(Bool,Broadcast)(const object &,const char *,int,const sMultiParm &) PURE;
 /*** SendToProxy - Send a message to an object on another computer.
  *  	= Bool - Returns true.
  *  	: const object & - The proxy host that will send the message.
  *  	: const object & - The destination of the message.
  *  	: const char * - The message name.
- *  	: const cMultiParm & - Message data.
+ *  	: const sMultiParm & - Message data.
  */
-	STDMETHOD_(Bool,SendToProxy)(const object &,const object &,const char *,const cMultiParm &) PURE;
+	STDMETHOD_(Bool,SendToProxy)(const object &,const object &,const char *,const sMultiParm &) PURE;
 /*** TakeOver - Become the host of an object.
  *  	= Bool - Returns true.
  *  	: const object & - Object to grab.
@@ -837,9 +837,9 @@ interface INetworkingSrv : IScriptServiceBase
  *  	: const object & - The destination object.
  *  	: const char * - The timer name.
  *  	: float - Time to delay the message, in seconds.
- *  	: const cMultiParm & - Message data.
+ *  	: const sMultiParm & - Message data.
  */
-	STDMETHOD_(tScrTimer,SetProxyOneShotTimer)(const object &,const char *,float,const cMultiParm &) PURE;
+	STDMETHOD_(tScrTimer,SetProxyOneShotTimer)(const object &,const char *,float,const sMultiParm &) PURE;
 /*** FirstPlayer - Begin an iteration of all players. The first player is the local owner.
  *  	= object - The object ID of the first player. Aggregate return.
  *  	@ INetManager::NetPlayerIterStart(iter)
@@ -989,24 +989,24 @@ interface IObjectSrv : IScriptServiceBase
  */
 	STDMETHOD(SetTransience)(object,true_bool) PURE;
 /*** Position - Get the location of an object.
- *  	= cScrVec - The object's XYZ vector. Aggregate return.
+ *  	= mxs_vector - The object's XYZ vector. Aggregate return.
  *  	: object - The object to query.
  */
-	STDMETHOD_(cScrVec*,Position)(cScrVec &,object) PURE;
+	STDMETHOD_(mxs_vector*,Position)(mxs_vector &,object) PURE;
 /*** Facing - Get the direction an object is facing.
- *  	= cScrVec - The object's HPB vector as degrees. Aggregate return.
+ *  	= mxs_vector - The object's HPB vector as degrees. Aggregate return.
  *  	: object - The object to query.
  */
-	STDMETHOD_(cScrVec*,Facing)(cScrVec &,object) PURE;
+	STDMETHOD_(mxs_vector*,Facing)(mxs_vector &,object) PURE;
 /*** Teleport - Move an object to a different location.
  *  	= long - Returns 0.
  *  	: object - The object to move.
- *  	: const cScrVec & - The new location for the object.
- *  	: const cScrVec & - The new facing for the object, as degrees.
+ *  	: const mxs_vector & - The new location for the object.
+ *  	: const mxs_vector & - The new facing for the object, as degrees.
  *  	: object - An object to measure the new location and facing relative from. 0 for absolute positioning.
  *  	@ IGameTools::TeleportObject(obj,loc,fac,rel)
  */
-	STDMETHOD(Teleport)(object,const cScrVec  &,const cScrVec  &,object) PURE;
+	STDMETHOD(Teleport)(object,const mxs_vector  &,const mxs_vector  &,object) PURE;
 #if (_DARKGAME == 2) || (_DARKGAME == 3)
 /*** IsPositionValid - Check if the object is inside the worldrep.
  *  	= true_bool - True if the object is not in solid space. Aggregate return.
@@ -1044,11 +1044,11 @@ interface IObjectSrv : IScriptServiceBase
 	STDMETHOD_(object*,FindClosestObjectNamed)(object &, int,const char *) PURE;
 #endif
 /*** ObjectToWorld - Translate a relative vector to absolute.
- *  	= cScrVec - The absolute position in world coordinates. Aggregate return.
+ *  	= mxs_vector - The absolute position in world coordinates. Aggregate return.
  *  	: object - The object to measure from.
- *  	: const cScrVec & - Position relative to the location and rotation of the object.
+ *  	: const mxs_vector & - Position relative to the location and rotation of the object.
  */
-	STDMETHOD_(cScrVec*,ObjectToWorld)(cScrVec &, object,const cScrVec &) PURE;
+	STDMETHOD_(mxs_vector*,ObjectToWorld)(mxs_vector &, object,const mxs_vector &) PURE;
 #endif
 };
 DEFINE_IIDSTRUCT(IObjectSrv,IID_IObjectScriptService);
@@ -1093,28 +1093,28 @@ interface IPhysSrv : IScriptServiceBase
  *  	: object - Archetype to emit.
  *  	: float - Velocity scale of projectile.
  *  	: int - 1=ZeroVel, 2=PushOut, 4=RelativeVelocity, 8=Gravity, 512=TellAI, 1024=NoPhysics. 
- *  	: const cScrVec & - Initial velocity. Will be added to the velocity inherited from the archetype or emitter.
+ *  	: const mxs_vector & - Initial velocity. Will be added to the velocity inherited from the archetype or emitter.
  */
-	STDMETHOD_(object*,LaunchProjectile)(object &,object,object,float,int,const cScrVec &) PURE;
+	STDMETHOD_(object*,LaunchProjectile)(object &,object,object,float,int,const mxs_vector &) PURE;
 /*** SetVelocity - Set the current speed of an object.
  *  	= long - Returns 0.
  *  	: object - The object to modify.
- *  	: const cScrVec & - The new velocity of the object.
+ *  	: const mxs_vector & - The new velocity of the object.
  */
-	STDMETHOD(SetVelocity)(object,const cScrVec &) PURE;
+	STDMETHOD(SetVelocity)(object,const mxs_vector &) PURE;
 /*** GetVelocity - Retrieve the current speed of an object.
  *  	= long - Returns 0.
  *  	: object - The object to query.
- *  	: cScrVec & - Address of a variable that will receive the velocity.
+ *  	: mxs_vector & - Address of a variable that will receive the velocity.
  */
-	STDMETHOD(GetVelocity)(object,cScrVec  &) PURE;
+	STDMETHOD(GetVelocity)(object,mxs_vector  &) PURE;
 #if (_DARKGAME == 2)
 /*** ControlVelocity - Lock the velocity of an object.
  *  	= long - Returns 0.
  *  	: object - The object to modify.
- *  	: const cScrVec & - The new velocity of the object.
+ *  	: const mxs_vector & - The new velocity of the object.
  */
-	STDMETHOD(ControlVelocity)(object,const cScrVec &) PURE;
+	STDMETHOD(ControlVelocity)(object,const mxs_vector &) PURE;
 /*** StopControlVelocity - Unlock the velocity of an object.
  *  	= long - Returns 0.
  *  	: object - The object to modify.
@@ -1170,9 +1170,9 @@ interface IPhysSrv : IScriptServiceBase
 	STDMETHOD(DeregisterModel)(object) PURE;
 /*** PlayerMotionSetOffset - Nudge the player model.
  *  	: int - Submodel to move.
- *  	: cScrVec & - New position.
+ *  	: mxs_vector & - New position.
  */
-	STDMETHOD_(void,PlayerMotionSetOffset)(int,cScrVec &) PURE;
+	STDMETHOD_(void,PlayerMotionSetOffset)(int,mxs_vector &) PURE;
 /*** Activate - Wake up an object at rest.
  *  	= long - Returns 0 on success.
  *  	: const object - The object to activate.
@@ -1271,33 +1271,33 @@ DECLARE_GUID(IPropertyScriptService);
 interface IPropertySrv : IScriptServiceBase
 {
 /*** Get - Retrieve some data from a property.
- *  	= cMultiParm - Aggregate return. Caller should free if string or vector.
+ *  	= sMultiParm - Aggregate return. Caller should free if string or vector.
  *  	: object - The object to query.
  *  	: const char * - The property name.
  *  	: const char * - The field name. NULL if the property is only a single field, otherwise it's the exact name that's displayed in the editor dialog in DromEd.
  */
-	STDMETHOD_(cMultiParm*,Get)(cMultiParm &,object,const char *,const char *) PURE;
+	STDMETHOD_(sMultiParm*,Get)(sMultiParm &,object,const char *,const char *) PURE;
 /*** Set - Write a value into a field of a property.
  *  	= long - Returns 0 on success.
  *  	: const char * - The property name.
  *  	: const char * - The field name.
- *  	: const cMultiParm & - The data to write.
+ *  	: const sMultiParm & - The data to write.
  */
-	STDMETHOD(Set)(object,const char *,const char *,const cMultiParm &) PURE;
+	STDMETHOD(Set)(object,const char *,const char *,const sMultiParm &) PURE;
 /*** SetSimple - Write a value into a simple property. Identical to calling Set with a NULL field name.
  *  	= long - Returns 0 on success.
  *  	: const char * - The property name.
- *  	: const cMultiParm & - The data to write.
+ *  	: const sMultiParm & - The data to write.
  */
-	STDMETHOD(SetSimple)(object,const char *,const cMultiParm &) PURE;
+	STDMETHOD(SetSimple)(object,const char *,const sMultiParm &) PURE;
 #if (_DARKGAME == 2) || (_DARKGAME == 3)
 /*** SetLocal - Write a value into a field of a property without propogating across the network.
  *  	= long - Returns 0 on success.
  *  	: const char * - The property name.
  *  	: const char * - The field name.
- *  	: const cMultiParm & - The data to write.
+ *  	: const sMultiParm & - The data to write.
  */
-	STDMETHOD(SetLocal)(object,const char *,const char *,const cMultiParm &) PURE;
+	STDMETHOD(SetLocal)(object,const char *,const char *,const sMultiParm &) PURE;
 #endif
 /*** Add - Create an instance of a property on an object.
  *  	= long - Returns 0 on success.
@@ -2192,11 +2192,11 @@ interface ISoundScrSrv : IScriptServiceBase
  *  	= true_bool - Success.
  *  	: object - The host object.
  *  	: const cScrStr & - The schema tags.
- *  	: const cScrVec & - The location the schema will originate from.
+ *  	: const mxs_vector & - The location the schema will originate from.
  *  	: eSoundSpecial - Loop option.
  *  	: eSoundNetwork - Network option.
  */
-	STDMETHOD_(true_bool*,PlayAtLocation)(true_bool &,object,const cScrStr &,const cScrVec &,eSoundSpecial SOUND_NET) PURE;
+	STDMETHOD_(true_bool*,PlayAtLocation)(true_bool &,object,const cScrStr &,const mxs_vector &,eSoundSpecial SOUND_NET) PURE;
 /*** PlayAtObject - Play a schema at the location of an object.
  *  	= true_bool - Success.
  *  	: object - The host object.
@@ -2226,10 +2226,10 @@ interface ISoundScrSrv : IScriptServiceBase
  *  	= true_bool - Success.
  *  	: object - The host object.
  *  	: object - The schema.
- *  	: const cScrVec & - The location the schema will originate from.
+ *  	: const mxs_vector & - The location the schema will originate from.
  *  	: eSoundNetwork - Network option.
  */
-	STDMETHOD_(true_bool*,PlaySchemaAtLocation)(true_bool &,object,object,const cScrVec & SOUND_NET) PURE;
+	STDMETHOD_(true_bool*,PlaySchemaAtLocation)(true_bool &,object,object,const mxs_vector & SOUND_NET) PURE;
 /*** PlaySchemaAtObject - Play a schema object at the location of an object.
  *  	= true_bool - Success.
  *  	: object - The host object.
@@ -2392,11 +2392,11 @@ interface IDarkOverlaySrv : IScriptServiceBase
 	STDMETHOD_(void,GetBitmapSize)(int,int &,int &) PURE;
 /*** WorldToScreen - Translate a 3D point in the world to screen coordinates. Only valid while drawing an overlay.
  *  	= Bool - Returns false if the point is offscreen.
- *  	: const cScrVec & - A location in the world.
+ *  	: const mxs_vector & - A location in the world.
  *  	: int & - X coordinate of the point on the screen.
  *  	: int & - Y coordinate of the point on the screen.
  */
-	STDMETHOD_(Bool,WorldToScreen)(const cScrVec &,int &,int &) PURE;
+	STDMETHOD_(Bool,WorldToScreen)(const mxs_vector &,int &,int &) PURE;
 /*** GetObjectScreenBounds - Get the rectange that surrounds an object as it appears onscreen.
  *  	= Bool - Returns false if the object is not visible.
  *  	: const object & - The object.
@@ -2613,9 +2613,9 @@ interface IEngineSrv : IScriptServiceBase
  *  	: float & - Splash height.
  *  	: float & - Splash time.
  *  	: cScrStr & - Precipitation bitmap.
- *  	: cScrVec & - Wind velocity.
+ *  	: mxs_vector & - Wind velocity.
  */
-	STDMETHOD_(void,GetWeather)(int &,float &,float &,float &,float &,float &,float &,float &,float &,float &,float &,float &,float &,cScrStr &,cScrVec &) PURE;
+	STDMETHOD_(void,GetWeather)(int &,float &,float &,float &,float &,float &,float &,float &,float &,float &,float &,float &,float &,cScrStr &,mxs_vector &) PURE;
 /*** SetWeather - Change the global weather parameters.
  *  	: int - Precipitation type.
  *  	: float - Precipitation frequency.
@@ -2631,28 +2631,28 @@ interface IEngineSrv : IScriptServiceBase
  *  	: float - Splash height.
  *  	: float - Splash time.
  *  	: const char * - Precipitation bitmap.
- *  	: const cScrVec & - Wind velocity.
+ *  	: const mxs_vector & - Wind velocity.
  */
-	STDMETHOD_(void,SetWeather)(int,float,float,float,float,float,float,float,float,float,float,float,float,const char *,const cScrVec &) PURE;
+	STDMETHOD_(void,SetWeather)(int,float,float,float,float,float,float,float,float,float,float,float,float,const char *,const mxs_vector &) PURE;
 /*** PortalRaycast - Check for terrain blocking two points.
  *  	= Bool - True if terrain was hit.
- *  	: const cScrVec & - Starting location.
- *  	: const cScrVec & - Ending location.
- *  	: cScrVec & - Location of terrain, if hit.
+ *  	: const mxs_vector & - Starting location.
+ *  	: const mxs_vector & - Ending location.
+ *  	: mxs_vector & - Location of terrain, if hit.
  */
-	STDMETHOD_(Bool,PortalRaycast)(const cScrVec &,const cScrVec &,cScrVec &) PURE;
+	STDMETHOD_(Bool,PortalRaycast)(const mxs_vector &,const mxs_vector &,mxs_vector &) PURE;
 /*** ObjRaycast - Check for an object or terrain between two points.
  *  	= int - Returns 0 if nothing is hit. 1 = terrain, 2 = object, 3 = AI
- *  	: const cScrVec & - Starting location.
- *  	: const cScrVec & - Ending location.
- *  	: cScrVec & - Location where the object or terrain is hit, if any.
+ *  	: const mxs_vector & - Starting location.
+ *  	: const mxs_vector & - Ending location.
+ *  	: mxs_vector & - Location where the object or terrain is hit, if any.
  *  	: object & - The object or AI that was hit, if any.
  *  	: eObjRaycast - What to do when there is a hit.
  *  	: Bool - Ignore all AI if true.
  *  	: object - An object to ignore, such as a source object.
  *  	: object - Another object to ignore, such as a destination object.
  */
-	STDMETHOD_(int,ObjRaycast)(const cScrVec &,const cScrVec &,cScrVec &,object &,eObjRaycast,Bool,object,object) PURE;
+	STDMETHOD_(int,ObjRaycast)(const mxs_vector &,const mxs_vector &,mxs_vector &,object &,eObjRaycast,Bool,object,object) PURE;
 /*** SetEnvMapZone - Change the environment texture map for a zone.
  *  	: int - Environment zone ID. (0 - 63)
  *  	: const char * - Name of the new texture, or NULL.
@@ -2785,11 +2785,11 @@ interface IShockOverlaySrv : IScriptServiceBase
 	STDMETHOD_(void,PlaySound)(const char *) PURE;
 /*** WorldToScreen - Translate a 3D point in the world to screen coordinates. Only valid while drawing an overlay.
  *  	= Bool - Returns false if the point is offscreen.
- *  	: const cScrVec & - A location in the world.
+ *  	: const mxs_vector & - A location in the world.
  *  	: int & - X coordinate of the point on the screen.
  *  	: int & - Y coordinate of the point on the screen.
  */
-	STDMETHOD_(Bool,WorldToScreen)(const cScrVec &,int &,int &) PURE;
+	STDMETHOD_(Bool,WorldToScreen)(const mxs_vector &,int &,int &) PURE;
 /*** GetObjectScreenBounds - Get the rectange that surrounds an object as it appears onscreen.
  *  	= Bool - Returns false if the object is not visible.
  *  	: const object & - The object.

@@ -357,28 +357,28 @@ DECLARE_INTERFACE_(IScriptMan,IUnknown)
  */
 	STDMETHOD_(tScrTimer,SetTimedMessage)(THIS_ sScrMsg *,ulong,eScrTimedMsgKind) PURE;
 /*** SendMessage2 - Construct and send a message.
- *  	= cMultiParm - The reply from the message. Aggregate return. A string or vector type should be freed by the caller.
+ *  	= sMultiParm - The reply from the message. Aggregate return. A string or vector type should be freed by the caller.
  *  	: int - The source object. sScrMsg::from
  *  	: int - The destination object. sScrMsg::to
  *  	: const char * - The message string. sScrMsg::message
- *  	: const cMultiParm & - Extra data. sScrMsg::data
- *  	: const cMultiParm & - Extra data. sScrMsg::data2
- *  	: const cMultiParm & - Extra data. sScrMsg::data3
+ *  	: const sMultiParm & - Extra data. sScrMsg::data
+ *  	: const sMultiParm & - Extra data. sScrMsg::data2
+ *  	: const sMultiParm & - Extra data. sScrMsg::data3
  */
-	STDMETHOD_(cMultiParm*,SendMessage2)(THIS_ cMultiParm &,int,int,const char *,const cMultiParm &,const cMultiParm &,const cMultiParm &) PURE;
+	STDMETHOD_(sMultiParm*,SendMessage2)(THIS_ sMultiParm &,int,int,const char *,const sMultiParm &,const sMultiParm &,const sMultiParm &) PURE;
 /*** PostMessage2 - Construct and post a message. The parameters are copied, so they can be on the stack.
  *  	: int - The source object. sScrMsg::from
  *  	: int - The destination object. sScrMsg::to
  *  	: const char * - The message string. sScrMsg::message
- *  	: const cMultiParm & - Extra data. sScrMsg::data
- *  	: const cMultiParm & - Extra data. sScrMsg::data2
- *  	: const cMultiParm & - Extra data. sScrMsg::data3
+ *  	: const sMultiParm & - Extra data. sScrMsg::data
+ *  	: const sMultiParm & - Extra data. sScrMsg::data2
+ *  	: const sMultiParm & - Extra data. sScrMsg::data3
  *  	: ulong - Message options. Not in Thief 1. sScrMsg::flags
  */
 #if (_DARKGAME==1)
-	STDMETHOD_(void,PostMessage2)(THIS_ int,int,const char *,const cMultiParm &,const cMultiParm &,const cMultiParm &) PURE;
+	STDMETHOD_(void,PostMessage2)(THIS_ int,int,const char *,const sMultiParm &,const sMultiParm &,const sMultiParm &) PURE;
 #else
-	STDMETHOD_(void,PostMessage2)(THIS_ int,int,const char *,const cMultiParm &,const cMultiParm &,const cMultiParm &,ulong) PURE;
+	STDMETHOD_(void,PostMessage2)(THIS_ int,int,const char *,const sMultiParm &,const sMultiParm &,const sMultiParm &,ulong) PURE;
 #endif
 /*** SetTimedMessage2 - Construct and send a "Timer" message.
  *  	= tScrTimer - Pointer to the timer struct for the queued message.
@@ -386,9 +386,9 @@ DECLARE_INTERFACE_(IScriptMan,IUnknown)
  *  	: const char * - The message name. sScrTimedMsg::name
  *  	: ulong - How many milliseconds to wait before sending the message.
  *  	: eScrTimedMsgKind - Whether to send the message just once, or every time the period lapses.
- *  	: const cMultiParm & - Extra data. sScrMsg::data
+ *  	: const sMultiParm & - Extra data. sScrMsg::data
  */
-	STDMETHOD_(tScrTimer,SetTimedMessage2)(THIS_ int,const char *,ulong,eScrTimedMsgKind,const cMultiParm &) PURE;
+	STDMETHOD_(tScrTimer,SetTimedMessage2)(THIS_ int,const char *,ulong,eScrTimedMsgKind,const sMultiParm &) PURE;
 /*** IsScriptDataSet - Checks if the persistent script data is valid.
  *  	= Bool - Returns true if the data exists.
  *  	: const sScrDatumTag * - Description of the data to check for.
